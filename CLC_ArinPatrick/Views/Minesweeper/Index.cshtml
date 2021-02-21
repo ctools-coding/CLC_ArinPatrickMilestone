@@ -1,0 +1,56 @@
+﻿
+@model IEnumerable<Minesweeper_ArinPatrick.Models.Board>
+<style>
+        .game-button {
+            width: 50px;
+        }
+
+        .game-button-image {
+            width: 80px;
+        }
+
+        .button-zone {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .line-break {
+            flex-basis: 100%;
+            height: 0;
+        }
+
+        .button-label {
+            font-size: 8px;
+            text-align: center;
+        }
+    </style>
+    @{
+        //put the images in an array
+        string[] imageNames = { "Bomb.jpg", "Flag.jpg" };
+
+    }            
+
+<form>
+    <div>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            int dimension = (int)Math.Sqrt(Model.Count());
+           
+            // Start a new line
+            if(i % dimension == 0)
+            {
+                <div class="line-break"></div>
+            }
+
+            <button class="game-button-image" type="submit" value="@Model.ElementAt(i)." 
+                    name="buttonNum" asp-controller="Button" asp-action="HandleCellClick">
+                <img class="game-button" src="~/img/@imageNames[Model.ElementAt(i)]" />
+                <div class="button-label">
+
+                </div> 
+                
+            </button>
+        }
+        </div>
+</form>
+

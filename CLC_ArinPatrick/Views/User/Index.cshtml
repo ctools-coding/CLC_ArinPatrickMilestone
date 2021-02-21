@@ -1,0 +1,124 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@*Byte including the @model statement at the top of the view template file,
+    you can specify the type of object the view expects.
+    This @model(line 5) Directive allows us to access the list of employees
+    the controller passed to the view by using the model object
+    that's strongly typed *@
+
+@model IEnumerable<DataAccess_Layer.UserModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+@*The html <p> element represents paragraph*@
+
+<p>
+    @*The <a> tag defines a hyper link that is used to link one page top another*@
+    <a asp-action="Create">List of All Users</a>
+</p>
+
+
+@*Displaying employee information*@
+@*An html table consists of one <table> element
+    and one or more <tr>, <th> and <td> elements.*@
+<table class="table table-striped">
+
+    @*Table header is used to group header content in the html table*@
+    <thead>
+        @*<tr> tag is table row, defines a row in an html table*@
+        <tr>
+            @*The <th> tag defines a header cell in an html table
+        the text in the th element are bold and center by default*@
+            <th>
+                @*The DisplayNameFor shows the name of the property for the string
+            defined in the display attribute of the property*@
+                @Html.DisplayNameFor(model => model.First)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Last)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+
+        </tr>
+
+    </thead>
+
+    @*The <tbody> element is used in conjunction with the <thead> and the <tfoot>
+        elements to specify each part of a table(Body, header and footer)*@
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            @*<td> Table data defines a standard data cell in html table. The text in the <td> elements
+        are regular and left-aligned by default *@
+            <td>
+                @*The DisplayFor() helper method is a strongly typed extension method.
+            It generates an html string for the model object property
+            specified using a lambda expression*@
+                @Html.DisplayFor(modelItem => user.First)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Last)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => user.Password)
+            </td>
+            @**@
+            <td>
+                <a asp.action="Edit" asp-route-id="@user.UserID">Edit</a>
+                <a asp.action="Details" asp-route-id="@user.UserID">Details</a>
+                <a asp.action="Delete" asp-route-id="@user.UserID">Delete</a>
+
+            </td>
+        </tr>
+        }
+
+    </tbody>
+
+</table>
+

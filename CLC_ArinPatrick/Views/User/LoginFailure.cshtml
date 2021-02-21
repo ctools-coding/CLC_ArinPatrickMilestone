@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model DataAccess_Layer.UserModel
+
+<div>
+    <h4>You failed to login.</h4>
+    <hr />
+    <p>Well, you tried and failed to login using "@Model.Username", and "@Model.Password" so nice try.</p>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {/* id = Model.PrimaryKey */}) |
+    <a asp-action="Index">Back to List</a>
+</div>
