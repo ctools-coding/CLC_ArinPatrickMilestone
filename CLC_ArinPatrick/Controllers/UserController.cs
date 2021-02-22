@@ -1,5 +1,4 @@
-﻿using Business_Layer;
-using DataAccess_Layer;
+﻿using Minesweeper_ArinPatrick.Services.Business;
 using Microsoft.AspNetCore.Mvc;
 using Minesweeper_ArinPatrick.Models;
 using System.Collections.Generic;
@@ -30,10 +29,12 @@ namespace Minesweeper_ArinPatrick.Controllers
 
             if  (bs.GetUserByUserPass(user))
             {
-                return View("Minesweeper", user);
+
+                return View("LoginSuccess", user);
             }
             else
             {
+                ViewBag.name = "Login failed";
                 return View("LoginFailure", user);
             }
         }
