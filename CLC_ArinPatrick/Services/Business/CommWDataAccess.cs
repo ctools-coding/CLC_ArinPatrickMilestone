@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using DataAccess_Layer;
+using Minesweeper_ArinPatrick.Models;
 
-namespace Business_Layer
+namespace Minesweeper_ArinPatrick.Services.Business
 {
     public class CommWDataAccess
     {

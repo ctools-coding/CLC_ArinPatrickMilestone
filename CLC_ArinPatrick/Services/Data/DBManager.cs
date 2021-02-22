@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
 using System;
 using System.Text;
+using Minesweeper_ArinPatrick.Models;
+using System.Data.SqlClient;
 
-namespace DataAccess_Layer
+namespace Minesweeper_ArinPatrick.Services.Data
 {
     public class DBManager
     {

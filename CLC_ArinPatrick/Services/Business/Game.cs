@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Diagnostics;
 
-namespace MinesweeperGUI
+namespace Minesweeper_ArinPatrick.Services.Business
 {
     public partial class Form2 : Form
     {//create buttons

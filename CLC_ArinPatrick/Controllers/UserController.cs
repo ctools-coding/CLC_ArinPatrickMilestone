@@ -2,10 +2,9 @@
 using DataAccess_Layer;
 using Microsoft.AspNetCore.Mvc;
 using Minesweeper_ArinPatrick.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
@@ -15,7 +14,7 @@ namespace Minesweeper_ArinPatrick.Controllers
 
         public IActionResult Index()
         {
-            List<UserModel> userList = new List<UserModel>();
+            List<Models.UserModel> userList = new List<Models.UserModel>();
 
             userList = userDAL.GetAllUsers().ToList();
 
@@ -25,13 +24,13 @@ namespace Minesweeper_ArinPatrick.Controllers
         {
             return View();
         }
-        public IActionResult ProcessLogin(UserModel user)
+        public IActionResult ProcessLogin(Models.UserModel user)
         {
             CommWDataAccess bs = new CommWDataAccess();
 
             if  (bs.GetUserByUserPass(user))
             {
-                return View("LoginSuccess", user);
+                return View("Minesweeper", user);
             }
             else
             {
@@ -49,7 +48,7 @@ namespace Minesweeper_ArinPatrick.Controllers
         [ValidateAntiForgeryToken]
 
 
-        public IActionResult Create([Bind]UserModel objUser)
+        public IActionResult Create([Bind] Models.UserModel objUser)
         {
             if(ModelState.IsValid)
             {

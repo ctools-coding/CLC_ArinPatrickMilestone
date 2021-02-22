@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataAccess_Layer
+namespace Minesweeper_ArinPatrick.Models
 {
-    //no ur mom
     public class UserModel
     {
         //ID is pk
