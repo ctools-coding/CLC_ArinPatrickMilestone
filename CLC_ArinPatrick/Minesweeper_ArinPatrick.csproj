@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business Layer\Business Layer.csproj" />
     <ProjectReference Include="..\DataAccess Layer\DataAccess Layer.csproj" />
   </ItemGroup>
 
