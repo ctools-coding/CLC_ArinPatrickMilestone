@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess_Layer
 {
+    //no ur mom
     public class UserModel
     {
         //ID is pk
