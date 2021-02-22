@@ -33,7 +33,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             else
             {
-                ViewBag.name = "Login failed";
+                 
                 return View("LoginFailure", user);
             }
         }

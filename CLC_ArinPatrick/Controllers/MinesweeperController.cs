@@ -34,7 +34,10 @@ namespace Minesweeper_ArinPatrick.Controllers
 
             board.FloodFill(row, col);
 
-
+            if(board.grid[row, col].Live)
+            {
+                 
+            }
             
             board.IsGameOverGUI(row, col);
             
