@@ -1,9 +1,8 @@
-﻿using Business_Layer;
+﻿using Minesweeper_ArinPatrick.Services.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess_Layer;
 namespace Minesweeper_ArinPatrick.Models
 {
     public class UserData
