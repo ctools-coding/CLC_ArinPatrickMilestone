@@ -1,22 +1,25 @@
-﻿@model DataAccess_Layer.UserModel
+﻿@model Minesweeper_ArinPatrick.Models.UserModel
 
 <div>
     <h4>UserModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Username)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Username)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Password)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Password)
         </dd>
     </dl>
+
+    @ViewBag.name = model.Username;
+    <input type="submit" value="Go to Minesweeper" asp-controller="Minesweeper" asp-action="Index" />
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<Minesweeper_ArinPatrick.Models.Board>
+﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Board>
 <style>
         .game-button {
             width: 75px;
@@ -29,7 +28,7 @@
         string[] imageNames = { "Bomb.jpg", "Flag.jpg" };
 
     }            
-<h3>Welcome back @Html.DisplayFor(model => model.Username)! </h3>
+<h3>Welcome back @ViewBag.name ! </h3>
 <form>
     <div>
         @for (int i = 0; i < Model.Count(); i++)
@@ -42,13 +41,12 @@
                 <div class="line-break"></div>
             }
 
-            <button class="game-button-image" type="submit" value="@Model.ElementAt(i)." 
-                    name="buttonNum" asp-controller="Button" asp-action="HandleCellClick">
-                <img class="game-button" src="~/img/@imageNames[Model.ElementAt(i)]" />
+            <button class="game-button-image" type="submit" value="@Model.ElementAt(i)" 
+                    name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
+                
                 <div class="button-label">
 
-                </div> 
-                
+                </div>    
             </button>
         }
         </div>

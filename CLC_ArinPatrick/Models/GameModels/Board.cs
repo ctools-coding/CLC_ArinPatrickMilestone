@@ -183,9 +183,6 @@ namespace Minesweeper_ArinPatrick.Models
                     grid[a + 1, b - 1].Visited = true;
                     FloodFill(a + 1, b - 1);
                 }
-
-
-
             }
 
 
