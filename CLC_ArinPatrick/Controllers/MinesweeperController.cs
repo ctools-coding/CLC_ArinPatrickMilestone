@@ -34,8 +34,6 @@ namespace Minesweeper_ArinPatrick.Controllers
 
             board.FloodFill(row, col);
 
-
-            
             board.IsGameOverGUI(row, col);
             
             return View("Index", board);

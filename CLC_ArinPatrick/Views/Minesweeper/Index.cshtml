@@ -23,18 +23,16 @@
             text-align: center;
         }
     </style>
-    @{
-        //put the images in an array
-        string[] imageNames = { "Bomb.jpg", "Flag.jpg" };
-
-    }            
+          
 <h3>Welcome back @ViewBag.name ! </h3>
 <form>
     <div>
         @for (int i = 0; i < Model.Count(); i++)
         {
             int dimension = (int)Math.Sqrt(Model.Count());
-           
+            int row = i / Model.Count();
+            int col = i % Model.Count();
+
             // Start a new line
             if(i % dimension == 0)
             {
@@ -43,7 +41,18 @@
 
             <button class="game-button-image" type="submit" value="@Model.ElementAt(i)" 
                     name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
-                
+                @if (Model.ElementAt(i).IsGameOverGUI(row, col) == 50)
+                {
+                   <img class="game-button-image" src="~img/Bomb.jpg" />
+                }
+                else if(Model.ElementAt(i).IsGameOverGUI(row, col) == 0)
+                {
+                    <img />
+                }
+                else if (Model.ElementAt(i).IsGameOverGUI(row, col) == 0)
+                {
+                    <img />
+                }
                 <div class="button-label">
 
                 </div>    
