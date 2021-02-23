@@ -25,10 +25,8 @@ namespace Minesweeper_ArinPatrick.Controllers
             return View("Index", cellList);
         }
 
-        public IActionResult HandleCellClick(int index)
+        public IActionResult HandleCellClick(int row, int col)
         {
-            int row = index / board.Size;
-            int col = index % board.Size;
 
             board.grid[row, col].Visited = true;
 
