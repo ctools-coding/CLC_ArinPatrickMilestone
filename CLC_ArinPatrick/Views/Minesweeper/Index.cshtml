@@ -22,10 +22,7 @@
             font-size: 8px;
             text-align: center;
         }
-    </style>
-          
-       static List<Cell> images = new List<Cell>();
-        
+    </style>      
 
 <form>
     <div>
@@ -41,31 +38,25 @@
                 <div class="line-break"></div>
             }
 
-    <button class="game-button-image" type="submit" value="@Model.ElementAt(i)"
-            name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
-        @if (Model.ElementAt(i).Visited == true)
-        {
-            if (Model.ElementAt(i).Live == false)
-            {
-                <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
-            }
-            else if (Model.ElementAt(i).Live == true)
-            {
-                <img class="game-button-image" src="~/img/Bomb.jpg" />
-            }
-        }
-        else
-        {
-            //<p>blank</p>
-            <img class="game-button-image" src="~/img/unvisitedcell.jpg"/>
+            <button class="game-button-image" type="submit" value="@Model.ElementAt(i)"
+                    name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
+                @if(Model.ElementAt(i).Visited == true)
+                {
+                    if (Model.ElementAt(i).Live == false)
+                    {
+                        <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
+                    }
+                    else if (Model.ElementAt(i).Live == true)
+                    {
+                        <img class="game-button-image" src="~/img/Bomb.jpg" />
+                    }
+                }
+                else
+                {
+                    <p>blank</p>
+                }
 
-        }
-
-
-        <div class="button-label">
-
-        </div>
-    </button>
+            </button>
         }
         </div>
 </form>
