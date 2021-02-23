@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Board>
+﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Cell>
 <style>
         .game-button {
             width: 75px;
@@ -24,14 +24,14 @@
         }
     </style>
           
-<h3>Welcome back @ViewBag.name ! </h3>
+
 <form>
     <div>
         @for (int i = 0; i < Model.Count(); i++)
         {
             int dimension = (int)Math.Sqrt(Model.Count());
-            int row = i / Model.ElementAt(i).Size;
-            int col = i % Model.ElementAt(i).Size;
+            int row = i / Model.Count();
+            int col = i % Model.Count();
 
             // Start a new line
             if(i % dimension == 0)
@@ -41,18 +41,15 @@
 
     <button class="game-button-image" type="submit" value="@Model.ElementAt(i)"
             name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
-        @if (Model.ElementAt(i).IsGameOverGUI(row, col) == 50)
+        @if (Model.ElementAt(i).Live == false)
         {
-            <p>@Model.ElementAt(i).grid[row,col].LiveNeighbors.ToString()</p>
+            <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
         }
-        else if (Model.ElementAt(i).IsGameOverGUI(row, col) == 0)
+        else if (Model.ElementAt(i).Live == true)
         {
             <img class="game-button-image" src="~img/Bomb.jpg" />
         }
-        else if (Model.ElementAt(i).IsGameOverGUI(row, col) == 0)
-        {
-            <img />
-        }
+
         <div class="button-label">
 
         </div>
