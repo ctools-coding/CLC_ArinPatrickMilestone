@@ -43,7 +43,7 @@
 
     <button class="game-button-image" type="submit" value="@Model.ElementAt(i)"
             name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
-        @if(Model.ElementAt(i).Visited == true)
+        @if (Model.ElementAt(i).Visited == true)
         {
             if (Model.ElementAt(i).Live == false)
             {
@@ -56,7 +56,9 @@
         }
         else
         {
-            <p>blank</p>
+            //<p>blank</p>
+            <img class="game-button-image" src="~/img/unvisitedcell.jpg"/>
+
         }
 
 
