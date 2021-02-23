@@ -42,9 +42,8 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-
-            ViewBag.row = row;
-            ViewBag.col = col;
+            ViewBag.win = "Good job, you won!";
+            ViewBag.lose = "You lost. Get better.";
             return View("Index", cellList);
         }
 
