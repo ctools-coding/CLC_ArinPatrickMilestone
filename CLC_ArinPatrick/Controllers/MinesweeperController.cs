@@ -25,9 +25,11 @@ namespace Minesweeper_ArinPatrick.Controllers
             return View("Index", cellList);
         }
 
-        public IActionResult HandleCellClick(int row, int col)
+        public IActionResult HandleCellClick(string location)
         {
-
+            string[] coordinates = location.Split(',');
+            int row = int.Parse(coordinates[0]);
+            int col = int.Parse(coordinates[1]);
             board.grid[row, col].Visited = true;
 
             board.FloodFill(row, col);
@@ -40,6 +42,9 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
+
+            ViewBag.row = row;
+            ViewBag.col = col;
             return View("Index", cellList);
         }
 

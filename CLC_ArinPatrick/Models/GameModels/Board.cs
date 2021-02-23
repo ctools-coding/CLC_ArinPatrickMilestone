@@ -27,6 +27,8 @@ namespace Minesweeper_ArinPatrick.Models
                     for (int j = 0; j < size; j++)
                     {
                         grid[i, j] = new Cell();
+                        grid[i, j].Row = i;
+                        grid[i, j].Column = j;
                     }
                 }
             }
