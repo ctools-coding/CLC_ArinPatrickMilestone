@@ -24,7 +24,10 @@
         }
     </style>      
 
-
+@{ 
+    string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
+        "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
+}
 
 <form>
     <div>
@@ -46,7 +49,7 @@
                 {
                     if (Model.ElementAt(i).Live == false)
                     {
-                        <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
+                        <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
                     }
                     else if (Model.ElementAt(i).Live == true)
                     {
