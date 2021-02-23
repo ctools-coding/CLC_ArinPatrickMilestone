@@ -41,14 +41,22 @@
 
     <button class="game-button-image" type="submit" value="@Model.ElementAt(i)"
             name="buttonNum" asp-controller="Minesweeper" asp-action="HandleCellClick">
-        @if (Model.ElementAt(i).Live == false)
+        @if(Model.ElementAt(i).Visited == true)
         {
-            <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
+            if (Model.ElementAt(i).Live == false)
+            {
+                <p>@Model.ElementAt(i).LiveNeighbors.ToString()</p>
+            }
+            else if (Model.ElementAt(i).Live == true)
+            {
+                <img class="game-button-image" src="~/img/Bomb.jpg" />
+            }
         }
-        else if (Model.ElementAt(i).Live == true)
+        else
         {
-            <img class="game-button-image" src="~img/Bomb.jpg" />
+            <p>blank</p>
         }
+
 
         <div class="button-label">
 
