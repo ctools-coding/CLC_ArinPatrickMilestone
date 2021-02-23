@@ -8,7 +8,6 @@ namespace Minesweeper_ArinPatrick.Models
     public class Board
     {
 
-
             //board properties
 
             public Cell[,] grid; //multidimentional array

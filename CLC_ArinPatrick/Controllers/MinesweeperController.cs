@@ -35,8 +35,14 @@ namespace Minesweeper_ArinPatrick.Controllers
             board.FloodFill(row, col);
 
             board.IsGameOverGUI(row, col);
-            
-            return View("Index", board);
+
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            }
+            return View("Index", cellList);
         }
 
     }
