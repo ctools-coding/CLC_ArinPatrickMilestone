@@ -17,9 +17,7 @@
             @Html.DisplayFor(model => model.Password)
         </dd>
     </dl>
-
-    @ViewBag.name = model.Username;<br />
-    <input type="submit" value="Go to Minesweeper" asp-controller="Minesweeper" asp-action="Index" />
+    <a  asp-controller="Minesweeper" asp-action="Index"> Go to Minesweeper </a>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

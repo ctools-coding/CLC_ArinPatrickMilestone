@@ -17,7 +17,6 @@ namespace Minesweeper_ArinPatrick.Controllers
             board.calculateLiveNeighbors();
 
             List<Cell> cellList = new List<Cell>();
-
             foreach(Cell cell in board.grid)
             {
                 cellList.Add(cell);
