@@ -56,20 +56,32 @@
 @{ 
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
+    int liveCount = 0;
+    int safeCount = 0;
 }
 
 
 <form>
     <div>
-        <p>@ViewBag.row @ViewBag.col</p>
         @for (int i = 0; i < Model.Count(); i++)
         {
             int dimension = (int)Math.Sqrt(Model.Count());
             int row = i / dimension;
             int col = i % dimension;
-            
+
+            //Keep track of unvisited live cells
+            @if (Model.ElementAt(i).Live == true && Model.ElementAt(i).Visited == false)
+            {
+                liveCount++;
+            }
+            //Keep track of visited safe cells
+            @if (Model.ElementAt(i).Live == false && Model.ElementAt(i).Visited == true)
+            {
+                safeCount++;
+            }
+
             // Start a new line
-            if(i % dimension == 0)
+            if (i % dimension == 0)
             {
                 <div class="line-break"></div>
             }
@@ -90,17 +102,23 @@
                     else if (Model.ElementAt(i).Live == true)
                     {
                         <img class="game-button-image" src="~/img/Bomb.jpg" />
+
                     }
                 }
                 else
                 {
                     <img class="game-button-image" src="~/img/unvisitedcell.png" />
                 }
-                <div class="button-label">
-                    @row @col 
-                </div>
             </button>
+            @if (Model.Count() - safeCount == liveCount)
+            {
+                <p>@ViewBag.win</p>
+            }
+            @if (Model.ElementAt(i).Visited == true && Model.ElementAt(i).Live == true)
+            {
+                <p>@ViewBag.lose</p>
+            }
         }
-        </div>
+    </div>
 </form>
 
