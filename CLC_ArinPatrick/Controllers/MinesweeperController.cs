@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Minesweeper_ArinPatrick.Models;
+using Minesweeper_ArinPatrick.Services.Business;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
     public class MinesweeperController : Controller
     {
         public static Board board;
+        Game game = new Game();
         public IActionResult Index()
         {
             board = new Board(8);
