@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Cell>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <style>
         .game-button {
             width: 75px;
@@ -22,7 +23,35 @@
             font-size: 8px;
             text-align: center;
         }
-    </style>      
+    </style>
+
+    <script>
+        //when the document loads, the context menu will be set to false
+        $(document).ready(function () {
+            $(document).contextmenu(function () {
+                return false;
+            });
+
+            //on our game cell object, we are doing a mouse down event. in my case it was 3, might be 2 for others
+            $('.game-cell').mousedown(function (event) {
+                if (event.which == 3) {
+                    console.log("event right click three");
+                    console.log(this);
+                    console.log(this.getAttribute("value"));
+
+                    //send information to controller
+                    //URL, data and a callback
+                    $.post("@Url.Action("OnRightButtonClick","Minesweeper")", {location :this.getAttribute("value")}, function (data) {
+                        console.log(data)
+                        //refresh entire page
+                        $("body").html(data);
+                    });
+                }
+            });
+        });
+    </script>     
+       
+
 
 @{ 
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
@@ -30,6 +59,7 @@
     int liveCount = 0;
     int safeCount = 0;
 }
+
 
 <form>
     <div>
@@ -55,9 +85,15 @@
             {
                 <div class="line-break"></div>
             }
-            <button class="game-button" type="submit" value="@row,@col"
+            <button class="game-cell" type="submit" value="@row,@col"
                     name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
-                @if (Model.ElementAt(i).Visited == true)
+
+                @if (Model.ElementAt(i).Flagged == true)
+                {
+                <img class="game-button-image" src="~/img/Flag.jpg">
+                }
+
+                else if(Model.ElementAt(i).Visited == true)
                 {
                     if (Model.ElementAt(i).Live == false)
                     {

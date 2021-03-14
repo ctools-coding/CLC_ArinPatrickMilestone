@@ -14,11 +14,14 @@ namespace Minesweeper_ArinPatrick.Models
             Visited = false;
             Live = false;
             LiveNeighbors = 0;
+            Flagged = false; 
         }
         public int Row { get; set; }
         public int Column { get; set; }
         public Boolean Visited { get; set; }
         public Boolean Live { get; set; }
         public int LiveNeighbors { get; set; }
+
+        public Boolean Flagged { get; set; }
     }
 }
