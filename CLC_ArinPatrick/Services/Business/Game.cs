@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Minesweeper_ArinPatrick.Models;
 
 namespace Minesweeper_ArinPatrick.Services.Business
@@ -7,7 +8,7 @@ namespace Minesweeper_ArinPatrick.Services.Business
     {
         public bool gameOver(List<Cell> cellList)
         {
-            
+            return false;
         }
     }
 }

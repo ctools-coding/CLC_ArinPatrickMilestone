@@ -11,7 +11,9 @@ namespace Minesweeper_ArinPatrick.Controllers
     public class MinesweeperController : Controller
     {
         public static Board board;
+        Game game = new Game();
         List<Cell> cellList = new List<Cell>();
+
         public IActionResult Index()
         {
             board = new Board(8);
@@ -63,6 +65,19 @@ namespace Minesweeper_ArinPatrick.Controllers
                 cellList.Add(cell);
             }
             return View("Index", cellList);
+        }
+
+        public IActionResult winCheck()
+        {
+            if(game.gameOver(cellList))
+            {
+                ViewBag.win = "Congrats, you won!";
+            }
+            else
+            {
+                ViewBag.win = "Nope. Try again.";
+            }
+            return View("_overPartial", cellList);
         }
     }
 }
