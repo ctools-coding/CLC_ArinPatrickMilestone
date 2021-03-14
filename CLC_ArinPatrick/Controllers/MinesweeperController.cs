@@ -63,5 +63,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
+
+
     }
 }
