@@ -10,11 +10,11 @@ namespace Minesweeper_ArinPatrick.Services.Business
         int liveCount = 0;
         int safeCount = 0;
 
-        public string gameOver(List<Cell> cellList)
+        public bool gameOver(List<Cell> cellList)
         {
             bool gameOver = false;
 
-            for(int square = 1; square < cellList.Count(); square++)
+            for(int square = 0; square < cellList.Count(); square++)
             {
                 if (cellList.ElementAt(square).Live == true && cellList.ElementAt(square).Visited == false)
                 {
@@ -25,17 +25,17 @@ namespace Minesweeper_ArinPatrick.Services.Business
                     safeCount++;
                 }
 
-          /*      if(cellList.Count() - safeCount == liveCount)
+                if(cellList.Count() - safeCount == liveCount)
                 {
                     return gameOver = true;
                 }
                 if(cellList.ElementAt(square).Visited == true && cellList.ElementAt(square).Live == true)
                 {
                     return gameOver = false;
-                }*/
+                }
 
             }
-            return liveCount.ToString() + " " + safeCount.ToString();
+            return gameOver;
         }
     }
 }

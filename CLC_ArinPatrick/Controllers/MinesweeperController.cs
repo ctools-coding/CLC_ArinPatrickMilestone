@@ -66,7 +66,7 @@ namespace Minesweeper_ArinPatrick.Controllers
                 cellList.Add(cell);
             }
    
-            return View("Index", cellList);
+            return PartialView("PartialBoard", cellList);
         }
 
         public IActionResult OnRightButtonClick(string location)
@@ -115,15 +115,14 @@ namespace Minesweeper_ArinPatrick.Controllers
                 cellList.Add(cell);
             }
 
-            ViewBag.win = game.gameOver(cellList);
-            /*if (game.gameOver(cellList) == true)
+            if (game.gameOver(cellList) == true)
             {
                 ViewBag.win = "Congrats, you won!";
             }
-            else
+            else if(game.gameOver(cellList) == false)
             {
                 ViewBag.win = "Nope. Try again.";
-            }*/
+            }
             return PartialView("_overPartial");
         }
     }
