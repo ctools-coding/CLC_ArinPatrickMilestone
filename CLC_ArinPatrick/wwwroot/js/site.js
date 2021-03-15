@@ -20,22 +20,24 @@ $(document).bind("contextmenu", function (e) {
     e.preventDefault();
     console.log("Context menu blocked");
 });
-
-    function doBoardUpdate(location) {
-        $.ajax(
+function doBoardUpdate(location)
+{
+    $.ajax(
+        {
+            datatype: 'json',
+            method: 'POST',
+            url: '/Minesweeper/PartialBoard',
+            data:
             {
-                datatype: 'json',
-                method: 'POST',
-                url: '/Minesweeper/OneCell',
-                data:
-                {
-                    "location": location
-                },
-                success: function (data) {
-                    console.log(data)
-                    $("#" + location).html(data);
-                }
-            });
+                "location": location
+            },
+            success: function (data)
+            {
+                console.log(data)
+                $('#board').html(data)
+                
+            }
+        });
 };
 
 $(function  () {
