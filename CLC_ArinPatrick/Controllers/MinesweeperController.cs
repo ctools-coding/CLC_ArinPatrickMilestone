@@ -27,7 +27,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
-        public IActionResult OneCell(string location)
+        public IActionResult PartialBoard(string location)
         {
             string[] coordinates = location.Split(',');
             int index = int.Parse(coordinates[0]);
@@ -45,7 +45,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-            return PartialView(cellList.ElementAt(index));
+            return PartialView(cellList);
         }
         public IActionResult HandleCellClick(string location)
         {

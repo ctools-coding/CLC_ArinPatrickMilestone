@@ -24,7 +24,7 @@ function doBoardUpdate(location)
         {
             datatype: 'json',
             method: 'POST',
-            url: '/Minesweeper/OneCell',
+            url: '/Minesweeper/PartialBoard',
             data:
             {
                 "location": location
