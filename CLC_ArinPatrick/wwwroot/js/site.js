@@ -32,7 +32,8 @@ function doBoardUpdate(location)
             success: function (data)
             {
                 console.log(data)
-                $("#" + location).html(data);
+                $('#board').html(data)
+                
             }
         });
 };

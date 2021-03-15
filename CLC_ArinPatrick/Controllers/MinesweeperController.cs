@@ -85,6 +85,26 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
+        public IActionResult OneCell(string location)
+        {
+            int bttnInt = int.Parse(location);
+            string[] coordinates = location.Split(',');
+            int row = int.Parse(coordinates[0]);
+            int col = int.Parse(coordinates[1]);
+            board.grid[row, col].Visited = true;
+
+            board.FloodFill(row, col);
+
+            board.IsGameOverGUI(row, col);
+
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            }
+            return PartialView(cellList.ElementAt(bttnInt));
+        }
 
         public IActionResult CheckGameOver()
         {
@@ -95,14 +115,15 @@ namespace Minesweeper_ArinPatrick.Controllers
                 cellList.Add(cell);
             }
 
-            if (game.gameOver(cellList))
+            ViewBag.win = game.gameOver(cellList);
+            /*if (game.gameOver(cellList) == true)
             {
                 ViewBag.win = "Congrats, you won!";
             }
             else
             {
                 ViewBag.win = "Nope. Try again.";
-            }
+            }*/
             return PartialView("_overPartial");
         }
     }
