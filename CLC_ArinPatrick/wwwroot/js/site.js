@@ -35,7 +35,6 @@ function doBoardUpdate(location)
             {
                 console.log(data)
                 $('#board').html(data)
-                
             }
         });
 };
