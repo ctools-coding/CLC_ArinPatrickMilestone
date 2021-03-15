@@ -13,10 +13,12 @@
 
     });
 });
-$(document).bind("contextmenu", function (e)
-{
+
+
+//block the context menu
+$(document).bind("contextmenu", function (e) {
     e.preventDefault();
-    console.log("Right click. Prevent context");
+    console.log("Context menu blocked");
 });
 function doBoardUpdate(location)
 {
@@ -37,18 +39,29 @@ function doBoardUpdate(location)
         });
 };
 
-function gameOver()
-{
-    $.ajax(
-        {
-            datatype: 'json',
-            method: 'GET',
-            url: '/Minesweeper/CheckGameOver',
-            data: {},
-            success: function (data)
+$(function  () {
+    $(document).on("mousedown", ".oneCell", function (e) {
+        console.log("We are inside mouse down");
+        if (e.button == 2) {
+            var buttonNumber = $(this).val();
+            console.log(location);
+          
+            doBoardUpdate(buttonNumber, "/Minesweeper/OnRightButtoneClick");
+
+        }
+    });
+});
+
+    function gameOver() {
+        $.ajax(
             {
-                console.log(data);
-                $('#gameOver').html(data)
-            }
-        });
-};
+                datatype: 'json',
+                method: 'GET',
+                url: 'Minesweeper/CheckGameOver',
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    $('#gameOver').html(data);
+                }
+            });
+    };
