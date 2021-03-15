@@ -85,6 +85,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
+
         public IActionResult CheckGameOver()
         {
             List<Cell> cellList = new List<Cell>();
