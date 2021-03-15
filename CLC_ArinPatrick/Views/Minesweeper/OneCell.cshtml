@@ -6,27 +6,27 @@
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
 }
 
-<button class="game-cell" type="submit" value="@Model.Row,@Model.Column"
+<button class="game-cell" type="submit" value="@Model.Row,@Model.Column @Model.Id"
         name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
 
     @if (Model.Flagged == true)
     {
-        <img class="game-button-image" src="~/img/Flag.jpg">
+        <img class="game-cell-image" src="~/img/Flag.jpg">
     }
     else if (Model.Visited == true)
     {
         if (Model.Live == false)
         {
-            <img class="game-button-image" src="~/img/@imagenames[Model.LiveNeighbors]" />
+            <img class="game-cell-image" src="~/img/@imagenames[Model.LiveNeighbors]" />
         }
         else if (Model.Live == true)
         {
-            <img class="game-button-image" src="~/img/Bomb.jpg" />
+            <img class="game-cell-image" src="~/img/Bomb.jpg" />
 
         }
     }
     else
     {
-        <img class="game-button-image" src="~/img/unvisitedcell.png" />
+        <img class="game-cell-image" src="~/img/unvisitedcell.png" />
     }
 </button>

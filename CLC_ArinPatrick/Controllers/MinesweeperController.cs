@@ -29,10 +29,10 @@ namespace Minesweeper_ArinPatrick.Controllers
         }
         public IActionResult OneCell(string location)
         {
-            int bttnInt = int.Parse(location);
             string[] coordinates = location.Split(',');
-            int row = int.Parse(coordinates[0]);
-            int col = int.Parse(coordinates[1]);
+            int index = int.Parse(coordinates[0]);
+            int row = int.Parse(coordinates[1]);
+            int col = int.Parse(coordinates[2]);
             board.grid[row, col].Visited = true;
 
             board.FloodFill(row, col);
@@ -45,13 +45,14 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-            return PartialView(cellList.ElementAt(bttnInt));
+            return PartialView(cellList.ElementAt(index));
         }
         public IActionResult HandleCellClick(string location)
         {
+
             string[] coordinates = location.Split(',');
-            int row = int.Parse(coordinates[0]);
-            int col = int.Parse(coordinates[1]);
+            int row = int.Parse(coordinates[1]);
+            int col = int.Parse(coordinates[2]);
             board.grid[row, col].Visited = true;
 
             board.FloodFill(row, col);
@@ -64,8 +65,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-            ViewBag.win = "Good job, you won!";
-            ViewBag.lose = "You lost. Get better.";
+   
             return View("Index", cellList);
         }
 
@@ -102,7 +102,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 ViewBag.win = "Nope. Try again.";
             }
-            return View("_overPartial", cellList);
+            return PartialView("_overPartial");
         }
     }
 }
