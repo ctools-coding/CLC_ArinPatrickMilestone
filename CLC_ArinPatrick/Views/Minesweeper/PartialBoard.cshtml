@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Cell>
+
+
+@{
+    string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
+        "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
+}
+
+<div class="cell-zone">
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        Model.ElementAt(i).Id = i;
+        int dimension = (int)Math.Sqrt(Model.Count());
+        int row = i / dimension;
+        int col = i % dimension;
+
+        // Start a new line
+        if (i % dimension == 0)
+        {
+            <div class="line-break"></div>
+        }
+        <div class="oneCell" id="@i">
+            <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
+                    name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
+                @if (Model.ElementAt(i).Flagged == true)
+                {
+                    <img class="game-cell-image" src="~/img/Flag.jpg">
+                }
+
+                else if (Model.ElementAt(i).Visited == true)
+                {
+                    if (Model.ElementAt(i).Live == false)
+                    {
+                        <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                    }
+                    else if (Model.ElementAt(i).Live == true)
+                    {
+                        <img class="game-cell-image" src="~/img/Bomb.jpg" />
+
+                    }
+                }
+                else
+                {
+                    <img class="game-cell-image" src="~/img/unvisitedcell.png" />
+                }
+            </button>
+        </div>
+    }
+</div>

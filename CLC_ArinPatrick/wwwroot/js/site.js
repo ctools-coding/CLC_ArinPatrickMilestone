@@ -1,13 +1,15 @@
 ﻿$(function ()
 {
     console.log("Page is loaded.");
-    $(document).on("click", ".game-button", function (event)
+    $(document).on("click", ".game-cell", function (event)
     {
         event.preventDefault();
 
         var location = $(this).val();
         console.log("Cell: " + location + " was clicked.");
 
+        doBoardUpdate(location);
+        gameOver();
 
     });
 });

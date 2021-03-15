@@ -1,31 +1,31 @@
 ﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Cell>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <style>
-        .game-button {
-            width: 75px;
-        }
+    .game-cell {
+        width: 75px;
+    }
 
-        .game-button-image {
-            width: 60px;
-        }
+    .game-cell-image {
+        width: 60px;
+    }
 
-        .button-zone {
-            display: flex;
-            flex-wrap: wrap;
-        }
+    .cell-zone {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-        .line-break {
-            flex-basis: 100%;
-            height: 0;
-        }
+    .line-break {
+        flex-basis: 100%;
+        height: 0;
+    }
 
-        .button-label {
-            font-size: 8px;
-            text-align: center;
-        }
-    </style>
-
-    @*<script>
+    .cell-label {
+        font-size: 8px;
+        text-align: center;
+    }
+</style>
+@*
+    <script>
         //when the document loads, the context menu will be set to false
         $(document).ready(function () {
             $(document).contextmenu(function () {
@@ -49,17 +49,19 @@
                 }
             });
         });
-    </script>*@     
-       
-@{ 
+    </script>  *@
+
+@{
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
 }
 
+<p>@DateTime.Now</p>
 <form>
-    <div class="button-zone">
+    <div class="cell-zone">
         @for (int i = 0; i < Model.Count(); i++)
         {
+            Model.ElementAt(i).Id = i;
             int dimension = (int)Math.Sqrt(Model.Count());
             int row = i / dimension;
             int col = i % dimension;
@@ -70,29 +72,28 @@
                 <div class="line-break"></div>
             }
             <div class="oneCell" id="@i">
-                <button class="game-cell" type="submit" value="@row,@col"
+                <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
                         name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
-
                     @if (Model.ElementAt(i).Flagged == true)
                     {
-                    <img class="game-button-image" src="~/img/Flag.jpg">
+                        <img class="game-cell-image" src="~/img/Flag.jpg">
                     }
 
-                    else if(Model.ElementAt(i).Visited == true)
+                    else if (Model.ElementAt(i).Visited == true)
                     {
                         if (Model.ElementAt(i).Live == false)
                         {
-                            <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                            <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
                         }
                         else if (Model.ElementAt(i).Live == true)
                         {
-                            <img class="game-button-image" src="~/img/Bomb.jpg" />
+                            <img class="game-cell-image" src="~/img/Bomb.jpg" />
 
                         }
                     }
                     else
                     {
-                        <img class="game-button-image" src="~/img/unvisitedcell.png" />
+                        <img class="game-cell-image" src="~/img/unvisitedcell.png" />
                     }
                 </button>
             </div>
