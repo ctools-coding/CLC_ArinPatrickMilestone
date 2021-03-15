@@ -39,14 +39,34 @@ function doBoardUpdate(location)
         });
 };
 
+
+function placeFlag(location)
+{
+$.ajax(
+{
+        datatype: 'json',
+        method: 'POST',
+        url: '/Minesweeper/OnRightButtonClick',
+        data:
+        {
+            "location": location
+        },
+        success: function (data) {
+            console.log(data)
+            $('#board').html(data)
+        }
+    });
+};
+
 $(function  () {
     $(document).on("mousedown", ".game-cell", function (e) {
         console.log("We are inside mouse down");
+        //my right click is three
         if (e.button == 2) {
             var buttonNumber = $(this).val();
             console.log(location);
           
-            doBoardUpdate(buttonNumber, "/Minesweeper/OnRightButtoneClick");
+            placeFlag(buttonNumber);
 
         }
     });
