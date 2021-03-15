@@ -24,32 +24,6 @@
         text-align: center;
     }
 </style>
-@*
-    <script>
-        //when the document loads, the context menu will be set to false
-        $(document).ready(function () {
-            $(document).contextmenu(function () {
-                return false;
-            });
-
-            //on our game cell object, we are doing a mouse down event. in my case it was 3, might be 2 for others
-            $('.game-cell').mousedown(function (event) {
-                if (event.which == 3) {
-                    console.log("event right click three");
-                    console.log(this);
-                    console.log(this.getAttribute("value"));
-
-                    //send information to controller
-                    //URL, data and a callback
-                    $.post("@Url.Action("OnRightButtonClick","Minesweeper")", {location :this.getAttribute("value")}, function (data) {
-                        console.log(data)
-                        //refresh entire page
-                        $("body").html(data);
-                    });
-                }
-            });
-        });
-    </script>  *@
 
 @{
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",

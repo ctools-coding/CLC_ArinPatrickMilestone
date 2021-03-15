@@ -40,7 +40,7 @@ function doBoardUpdate(location)
 };
 
 $(function  () {
-    $(document).on("mousedown", ".oneCell", function (e) {
+    $(document).on("mousedown", ".game-cell", function (e) {
         console.log("We are inside mouse down");
         if (e.button == 2) {
             var buttonNumber = $(this).val();
