@@ -56,69 +56,48 @@
 @{ 
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
-    int liveCount = 0;
-    int safeCount = 0;
 }
 
-
 <form>
-    <div>
+    <div class="button-zone">
         @for (int i = 0; i < Model.Count(); i++)
         {
             int dimension = (int)Math.Sqrt(Model.Count());
             int row = i / dimension;
             int col = i % dimension;
 
-            //Keep track of unvisited live cells
-            @if (Model.ElementAt(i).Live == true && Model.ElementAt(i).Visited == false)
-            {
-                liveCount++;
-            }
-            //Keep track of visited safe cells
-            @if (Model.ElementAt(i).Live == false && Model.ElementAt(i).Visited == true)
-            {
-                safeCount++;
-            }
-
             // Start a new line
             if (i % dimension == 0)
             {
                 <div class="line-break"></div>
             }
-            <button class="game-cell" type="submit" value="@row,@col"
-                    name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
+            <div class="oneCell" id="@i">
+                <button class="game-cell" type="submit" value="@row,@col"
+                        name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
 
-                @if (Model.ElementAt(i).Flagged == true)
-                {
-                <img class="game-button-image" src="~/img/Flag.jpg">
-                }
-
-                else if(Model.ElementAt(i).Visited == true)
-                {
-                    if (Model.ElementAt(i).Live == false)
+                    @if (Model.ElementAt(i).Flagged == true)
                     {
-                        <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                    <img class="game-button-image" src="~/img/Flag.jpg">
                     }
-                    else if (Model.ElementAt(i).Live == true)
+
+                    else if(Model.ElementAt(i).Visited == true)
                     {
-                        <img class="game-button-image" src="~/img/Bomb.jpg" />
+                        if (Model.ElementAt(i).Live == false)
+                        {
+                            <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                        }
+                        else if (Model.ElementAt(i).Live == true)
+                        {
+                            <img class="game-button-image" src="~/img/Bomb.jpg" />
 
+                        }
                     }
-                }
-                else
-                {
-                    <img class="game-button-image" src="~/img/unvisitedcell.png" />
-                }
-            </button>
-
-            @if (Model.Count() - safeCount == liveCount)
-            {
-                <p>@ViewBag.win</p>
-            }
-            @if (Model.ElementAt(i).Visited == true && Model.ElementAt(i).Live == true)
-            {
-                <p>@ViewBag.lose</p>
-            }
+                    else
+                    {
+                        <img class="game-button-image" src="~/img/unvisitedcell.png" />
+                    }
+                </button>
+            </div>
         }
     </div>
     <div id="gameOver">

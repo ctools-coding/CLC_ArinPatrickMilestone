@@ -12,7 +12,6 @@ namespace Minesweeper_ArinPatrick.Controllers
     {
         public static Board board;
         Game game = new Game();
-        List<Cell> cellList = new List<Cell>();
 
         public IActionResult Index()
         {
@@ -20,14 +19,34 @@ namespace Minesweeper_ArinPatrick.Controllers
             board.setUpLiveNeighbors(7);
             board.calculateLiveNeighbors();
 
+            List<Cell> cellList = new List<Cell>();
 
-            foreach(Cell cell in board.grid)
+            foreach (Cell cell in board.grid)
             {
                 cellList.Add(cell);
             }
             return View("Index", cellList);
         }
+        public IActionResult OneCell(string location)
+        {
+            int bttnInt = int.Parse(location);
+            string[] coordinates = location.Split(',');
+            int row = int.Parse(coordinates[0]);
+            int col = int.Parse(coordinates[1]);
+            board.grid[row, col].Visited = true;
 
+            board.FloodFill(row, col);
+
+            board.IsGameOverGUI(row, col);
+
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            }
+            return PartialView(cellList.ElementAt(bttnInt));
+        }
         public IActionResult HandleCellClick(string location)
         {
             string[] coordinates = location.Split(',');
@@ -66,10 +85,16 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
-
-        public IActionResult winCheck()
+        public IActionResult CheckGameOver()
         {
-            if(game.gameOver(cellList))
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            }
+
+            if (game.gameOver(cellList))
             {
                 ViewBag.win = "Congrats, you won!";
             }
