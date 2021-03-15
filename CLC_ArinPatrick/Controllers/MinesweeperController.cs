@@ -72,8 +72,8 @@ namespace Minesweeper_ArinPatrick.Controllers
         public IActionResult OnRightButtonClick(string location)
         {
             string[] coordinates = location.Split(',');
-            int row = int.Parse(coordinates[0]);
-            int col = int.Parse(coordinates[1]);
+            int row = int.Parse(coordinates[1]);
+            int col = int.Parse(coordinates[2]);
 
             board.grid[row,col].Flagged = !board.grid[row,col].Flagged;
 
