@@ -83,7 +83,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-            return View("PartialBoard", cellList);
+            return PartialView("PartialBoard", cellList);
         }
         public IActionResult OneCell(string location)
         {
