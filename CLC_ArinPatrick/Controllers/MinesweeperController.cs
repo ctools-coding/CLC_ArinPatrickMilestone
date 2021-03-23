@@ -83,7 +83,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             {
                 cellList.Add(cell);
             }
-            return View("Index", cellList);
+            return View("PartialBoard", cellList);
         }
         public IActionResult OneCell(string location)
         {
@@ -115,11 +115,15 @@ namespace Minesweeper_ArinPatrick.Controllers
                 cellList.Add(cell);
             }
 
-            if (game.gameOver(cellList) == true)
+            if (game.gameOver(cellList) == 1)
             {
                 ViewBag.win = "Congrats, you won!";
             }
-            else if(game.gameOver(cellList) == false)
+            else if(game.gameOver(cellList) == -1)
+            {
+                ViewBag.win = "Aw see now you're a loser.";
+            }
+            else if(game.gameOver(cellList) == 0)
             {
                 ViewBag.win = "Nope. Try again.";
             }
