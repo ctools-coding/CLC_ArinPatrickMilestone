@@ -67,7 +67,6 @@ $(function  () {
             console.log(location);
           
             placeFlag(buttonNumber);
-
         }
     });
 });
