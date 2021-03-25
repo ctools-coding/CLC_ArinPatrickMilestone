@@ -9,10 +9,10 @@ namespace Minesweeper_ArinPatrick.Services.Business
     {  
         int liveCount = 0;
         int safeCount = 0;
-
-        public bool gameOver(List<Cell> cellList)
+        int checkedBomb = 0;
+        public int gameOver(List<Cell> cellList)
         {
-            bool gameOver = false;
+            int gameOver = 0;
 
             for(int square = 0; square < cellList.Count(); square++)
             {
@@ -27,11 +27,11 @@ namespace Minesweeper_ArinPatrick.Services.Business
 
                 if(cellList.Count() - safeCount == liveCount)
                 {
-                    return gameOver = true;
+                    return gameOver = 1;
                 }
-                if(cellList.ElementAt(square).Visited == true && cellList.ElementAt(square).Live == true)
+                if (cellList.ElementAt(square).Visited == true && cellList.ElementAt(square).Live == true)
                 {
-                    return gameOver = false;
+                    return gameOver = -1;
                 }
 
             }
