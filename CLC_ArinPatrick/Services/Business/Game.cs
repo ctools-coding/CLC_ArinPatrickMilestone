@@ -9,7 +9,6 @@ namespace Minesweeper_ArinPatrick.Services.Business
     {  
         int liveCount = 0;
         int safeCount = 0;
-        int checkedBomb = 0;
         public int gameOver(List<Cell> cellList)
         {
             int gameOver = 0;

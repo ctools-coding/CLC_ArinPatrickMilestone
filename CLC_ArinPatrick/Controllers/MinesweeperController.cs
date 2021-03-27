@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Minesweeper_ArinPatrick.Models;
 using Minesweeper_ArinPatrick.Services.Business;
+using Minesweeper_ArinPatrick.Utility;
+using Newtonsoft.Json;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
@@ -27,6 +29,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return View("Index", cellList);
         }
+
         public IActionResult PartialBoard(string location)
         {
             string[] coordinates = location.Split(',');
@@ -68,7 +71,6 @@ namespace Minesweeper_ArinPatrick.Controllers
    
             return PartialView("PartialBoard", cellList);
         }
-
         public IActionResult OnRightButtonClick(string location)
         {
             string[] coordinates = location.Split(',');
@@ -105,7 +107,6 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return PartialView(cellList.ElementAt(bttnInt));
         }
-
         public IActionResult CheckGameOver()
         {
             List<Cell> cellList = new List<Cell>();
@@ -128,6 +129,34 @@ namespace Minesweeper_ArinPatrick.Controllers
                 ViewBag.win = "Nope. Try again.";
             }
             return PartialView("_overPartial");
+        }
+        public IActionResult OnSave()
+        {
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            } 
+
+            StoredGamesDAO storedDAO = new StoredGamesDAO();
+            GameObject gameObject = new GameObject(1, JsonConvert.SerializeObject(cellList));
+            bool success = storedDAO.SaveGame(gameObject);
+
+            Tuple<bool, string> resultsTuple = new Tuple<bool, string>(success, JsonConvert.SerializeObject(cellList));
+
+            return View("Results", resultsTuple);
+        }
+        public IActionResult OnLoad()
+        {
+            StoredGamesDAO storedDAO = new StoredGamesDAO();
+            GameObject gameObject = storedDAO.LoadGame();
+
+            List<Cell> cellList = JsonConvert.DeserializeObject<List<Cell>>(gameObject.JSONString);
+
+            Tuple<bool, string> resultsTuple = new Tuple<bool, string>(true, JsonConvert.SerializeObject(cellList));
+
+            return View("Index", cellList);
         }
     }
 }

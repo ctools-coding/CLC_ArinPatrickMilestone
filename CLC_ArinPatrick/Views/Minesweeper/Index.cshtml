@@ -31,50 +31,60 @@
 }
 
 <p>@DateTime.Now</p>
-    <form>
-        <div id="board" class="cell-zone">
-            @for (int i = 0; i < Model.Count(); i++)
+<form>
+    <div id="board" class="cell-zone">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            Model.ElementAt(i).Id = i;
+            int dimension = (int)Math.Sqrt(Model.Count());
+            int row = i / dimension;
+            int col = i % dimension;
+
+            // Start a new line
+            if (i % dimension == 0)
             {
-                Model.ElementAt(i).Id = i;
-                int dimension = (int)Math.Sqrt(Model.Count());
-                int row = i / dimension;
-                int col = i % dimension;
-
-                // Start a new line
-                if (i % dimension == 0)
-                {
-                    <div class="line-break"></div>
-                }
-                <div class="oneCell" id="@i">
-                    <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
-                            name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
-                        @if (Model.ElementAt(i).Flagged == true)
-                        {
-                            <img class="game-cell-image" src="~/img/Flag.jpg">
-                        }
-
-                        else if (Model.ElementAt(i).Visited == true)
-                        {
-                            if (Model.ElementAt(i).Live == false)
-                            {
-                                <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
-                            }
-                            else if (Model.ElementAt(i).Live == true)
-                            {
-                                <img class="game-cell-image" src="~/img/Bomb.jpg" />
-
-                            }
-                        }
-                        else
-                        {
-                            <img class="game-cell-image" src="~/img/unvisitedcell.png" />
-                        }
-                    </button>
-                </div>
+                <div class="line-break"></div>
             }
-        </div>
-        <div id="gameOver">
-            <p>Is it over yet?</p>
-        </div>
-    </form>
+            <div class="oneCell" id="@i">
+                <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
+                        name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
+                    @if (Model.ElementAt(i).Flagged == true)
+                    {
+                        <img class="game-cell-image" src="~/img/Flag.jpg">
+                    }
+
+                    else if (Model.ElementAt(i).Visited == true)
+                    {
+                        if (Model.ElementAt(i).Live == false)
+                        {
+                            <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                        }
+                        else if (Model.ElementAt(i).Live == true)
+                        {
+                            <img class="game-cell-image" src="~/img/Bomb.jpg" />
+
+                        }
+                    }
+                    else
+                    {
+                        <img class="game-cell-image" src="~/img/unvisitedcell.png" />
+                    }
+                </button>
+            </div>
+        }
+    </div>
+    <div id="gameOver">
+        <p>Is it over yet?</p>
+    </div>
+</form>
+
+@using (Html.BeginForm("OnSave", "Minesweeper"))
+{
+    <button type="submit" name="save">Save Game</button>
+}
+
+@using (Html.BeginForm("OnLoad", "Minesweeper"))
+{
+    <button type="submit" name="load">Load Game</button>
+}
 

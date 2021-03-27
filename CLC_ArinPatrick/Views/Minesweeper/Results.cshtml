@@ -1,0 +1,21 @@
+﻿@model Tuple<bool, string>
+@{
+    ViewData["Title"] = "Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Results</h1>
+<body>
+    <div>
+        @if (Model.Item1)
+        {
+            <p>Success!</p>
+            <p>@Model.Item2</p>
+        }
+        else
+        {
+            <p>Failed</p>
+        }
+    </div>
+    @Html.ActionLink("Return to Board", "Index", "Minesweeper")
+</body>
