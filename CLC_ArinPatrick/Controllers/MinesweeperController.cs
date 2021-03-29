@@ -52,7 +52,6 @@ namespace Minesweeper_ArinPatrick.Controllers
         }
         public IActionResult HandleCellClick(string location)
         {
-
             string[] coordinates = location.Split(',');
             int row = int.Parse(coordinates[1]);
             int col = int.Parse(coordinates[2]);
@@ -154,8 +153,13 @@ namespace Minesweeper_ArinPatrick.Controllers
 
             List<Cell> cellList = JsonConvert.DeserializeObject<List<Cell>>(gameObject.JSONString);
 
-            Tuple<bool, string> resultsTuple = new Tuple<bool, string>(true, JsonConvert.SerializeObject(cellList));
-
+            for(int i = 0; i < board.Size; i++)
+            {
+                for(int j = 0; j < board.Size; j++)
+                {
+                    board.grid[i,j] = cellList[(i * board.Size) + j];
+                }
+            }
             return View("Index", cellList);
         }
     }

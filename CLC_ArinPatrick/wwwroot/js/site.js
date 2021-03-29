@@ -76,7 +76,7 @@ $(function  () {
             {
                 datatype: 'json',
                 method: 'GET',
-                url: 'Minesweeper/CheckGameOver',
+                url: '/Minesweeper/CheckGameOver',
                 data: {},
                 success: function (data) {
                     console.log(data);
