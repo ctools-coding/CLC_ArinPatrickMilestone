@@ -89,3 +89,13 @@
         </div>
     </form>
 
+@using (Html.BeginForm("OnSave", "Minesweeper"))
+{
+    <button type="submit" name="save">Save Game</button>
+}
+
+@using (Html.BeginForm("OnLoad", "Minesweeper"))
+{
+    <button type="submit" name="load">Load Game</button>
+}
+

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Minesweeper_ArinPatrick.Models;
 using Minesweeper_ArinPatrick.Services.Business;
+using Minesweeper_ArinPatrick.Utility;
+using Newtonsoft.Json;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
@@ -66,7 +68,6 @@ namespace Minesweeper_ArinPatrick.Controllers
         /// 
         public IActionResult HandleCellClick(string location)
         {
-
             string[] coordinates = location.Split(',');
             int row = int.Parse(coordinates[1]);
             int col = int.Parse(coordinates[2]);
@@ -167,6 +168,39 @@ namespace Minesweeper_ArinPatrick.Controllers
                 ViewBag.win = "Nope. Try again.";
             }
             return PartialView("_overPartial");
+        }
+        public IActionResult OnSave()
+        {
+            List<Cell> cellList = new List<Cell>();
+
+            foreach (Cell cell in board.grid)
+            {
+                cellList.Add(cell);
+            } 
+
+            StoredGamesDAO storedDAO = new StoredGamesDAO();
+            GameObject gameObject = new GameObject(1, JsonConvert.SerializeObject(cellList));
+            bool success = storedDAO.SaveGame(gameObject);
+
+            Tuple<bool, string> resultsTuple = new Tuple<bool, string>(success, JsonConvert.SerializeObject(cellList));
+
+            return View("Results", resultsTuple);
+        }
+        public IActionResult OnLoad()
+        {
+            StoredGamesDAO storedDAO = new StoredGamesDAO();
+            GameObject gameObject = storedDAO.LoadGame();
+
+            List<Cell> cellList = JsonConvert.DeserializeObject<List<Cell>>(gameObject.JSONString);
+
+            for(int i = 0; i < board.Size; i++)
+            {
+                for(int j = 0; j < board.Size; j++)
+                {
+                    board.grid[i,j] = cellList[(i * board.Size) + j];
+                }
+            }
+            return View("Index", cellList);
         }
     }
 }
