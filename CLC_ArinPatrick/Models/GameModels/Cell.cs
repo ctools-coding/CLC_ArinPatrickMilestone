@@ -7,6 +7,7 @@ namespace Minesweeper_ArinPatrick.Models
 {
     public class Cell
     {
+        //cell class that encapsluates everything we need to create the game
         public Cell()
         {
             Row = -1;
