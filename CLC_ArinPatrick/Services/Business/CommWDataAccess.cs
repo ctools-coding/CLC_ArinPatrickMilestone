@@ -4,6 +4,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 using Minesweeper_ArinPatrick.Models;
 using Minesweeper_ArinPatrick.Services.Data;
+using Minesweeper_ArinPatrick.Utility;
 
 namespace Minesweeper_ArinPatrick.Services.Business
 {
@@ -29,6 +30,12 @@ namespace Minesweeper_ArinPatrick.Services.Business
         {
             DBManager dbmanager = new DBManager();
             return dbmanager.GetUserLogin(user);
+        }
+
+        public IEnumerable<Board> GetAllGames()
+        {
+            StoredGamesDAO allstoredgames = new StoredGamesDAO();
+            return (IEnumerable<Board>)allstoredgames.GetAllGames();
         }
 
     }

@@ -39,6 +39,7 @@ namespace Minesweeper_ArinPatrick.Utility
             }
             return success;
         }
+
         public GameObject LoadGame()
         {
             GameObject gameObject = new GameObject(1, "");
@@ -71,5 +72,37 @@ namespace Minesweeper_ArinPatrick.Utility
             }
             return gameObject;
         }
+
+        public IEnumerable<GameObject> GetAllGames()
+        {
+            String connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=dbMinesweeper;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            List<GameObject> boardList = new List<GameObject>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                //not using stored procedures
+                string sqlStatement = "SELECT * FROM dbo." +
+                    "Games";
+
+                SqlCommand command = new SqlCommand(sqlStatement, conn);
+
+                try
+                {
+                    conn.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        boardList.Add(new GameObject((int)reader[0],(string)reader[1]));
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                };
+                return boardList;
+            }
+        }
+
     }
 }
