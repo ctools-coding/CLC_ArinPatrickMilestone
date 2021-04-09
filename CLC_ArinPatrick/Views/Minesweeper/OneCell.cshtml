@@ -1,6 +1,11 @@
 ﻿@model Minesweeper_ArinPatrick.Models.Cell
 
-
+@*Images for every individual cell
+    /// Methods that need to be applied to every single cell
+    /// Location determined by row and col
+    /// flood fill
+    /// isgameover shows if the game can keep going or not
+    /// add the cell to the board*@
 @{
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
@@ -11,22 +16,22 @@
 
     @if (Model.Flagged == true)
     {
-    <img class="game-button-image" src="~/img/Flag.jpg">
+        <img class="game-button-image" src="~/img/Flag.jpg">
     }
     else if (Model.Visited == true)
     {
         if (Model.Live == false)
         {
-    <img class="game-button-image" src="~/img/@imagenames[Model.LiveNeighbors]" />
+            <img class="game-button-image" src="~/img/@imagenames[Model.LiveNeighbors]" />
         }
         else if (Model.Live == true)
         {
-    <img class="game-button-image" src="~/img/Bomb.jpg" />
+            <img class="game-button-image" src="~/img/Bomb.jpg" />
 
         }
     }
     else
     {
-    <img class="game-button-image" src="~/img/unvisitedcell.png" />
+        <img class="game-button-image" src="~/img/unvisitedcell.png" />
     }
 </button>

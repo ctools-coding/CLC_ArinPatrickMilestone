@@ -18,6 +18,10 @@ namespace Minesweeper_ArinPatrick.Controllers
         public static Board board;
         Game game = new Game();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             board = new Board(8);
@@ -33,6 +37,11 @@ namespace Minesweeper_ArinPatrick.Controllers
             return View("Index", cellList);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public IActionResult PartialBoard(string location)
         {
             string[] coordinates = location.Split(',');
@@ -53,6 +62,13 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return PartialView(cellList);
         }
+
+        /// <summary>
+        /// handle button click 
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        /// 
         public IActionResult HandleCellClick(string location)
         {
             string[] coordinates = location.Split(',');
@@ -73,6 +89,13 @@ namespace Minesweeper_ArinPatrick.Controllers
    
             return PartialView("PartialBoard", cellList);
         }
+
+        /// <summary>
+        /// Right button click  takes the location of button and places a flag on it
+        /// This is done by updating partial Board
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public IActionResult OnRightButtonClick(string location)
         {
             string[] coordinates = location.Split(',');
@@ -89,6 +112,15 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return PartialView("PartialBoard", cellList);
         }
+        /// <summary>
+        /// Methods that need to be applied to every single cell
+        /// Location determined by row and col
+        /// flood fill
+        /// isgameover shows if the game can keep going or not
+        /// add the cell to the board
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public IActionResult OneCell(string location)
         {
             int bttnInt = int.Parse(location);
@@ -109,6 +141,14 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             return PartialView(cellList.ElementAt(bttnInt));
         }
+
+        /// <summary>
+        /// Checks if that game is over. This is displayed under the game board indicating where the game is at
+        ///   1 == win
+        ///  -1 == lose
+        ///   0 == ongoing game
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CheckGameOver()
         {
             List<Cell> cellList = new List<Cell>();

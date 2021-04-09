@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Minesweeper_ArinPatrick.Models.Cell>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*Style of each of our cells
+    We define cell size,cell image size and board size in this flex continer*@
 <style>
     .game-cell {
         width: 75px;
@@ -25,58 +27,67 @@
     }
 </style>
 
+@*All of our pictures that we use within this application(each picture is self explanatory)*@
 @{
     string[] imagenames = {"0.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png","8.png","Bomb.jpg","Flag.jpg", "unvisitedcell.png"};
 }
 
+@*Display todays date and time*@
 <p>@DateTime.Now</p>
-<form>
-    <div id="board" class="cell-zone">
-        @for (int i = 0; i < Model.Count(); i++)
-        {
-            Model.ElementAt(i).Id = i;
-            int dimension = (int)Math.Sqrt(Model.Count());
-            int row = i / dimension;
-            int col = i % dimension;
-
-            // Start a new line
-            if (i % dimension == 0)
+    <form>
+        @*Board Dimensions*@
+        <div id="board" class="cell-zone">
+            @for (int i = 0; i < Model.Count(); i++)
             {
-                <div class="line-break"></div>
+                Model.ElementAt(i).Id = i;
+                int dimension = (int)Math.Sqrt(Model.Count());
+                int row = i / dimension;
+                int col = i % dimension;
+
+                // Start a new line
+                if (i % dimension == 0)
+                {
+                    <div class="line-break"></div>
+                }
+                //cell dimentions and rules, Each game cell is a button that submits data
+                <div class="oneCell" id="@i">
+                    <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
+                            name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
+                        @*If a cell is flagged == true, the cell will have a flag placed on it*@
+                        @if (Model.ElementAt(i).Flagged == true)
+                        {
+                            <img class="game-cell-image" src="~/img/Flag.jpg">
+                        }
+
+                        @*If a cell is visited, however it is not live(a bomb), it will either be blank, of have a number indicating live neighbors*@
+                        else if (Model.ElementAt(i).Visited == true)
+                        {
+                            if (Model.ElementAt(i).Live == false)
+                            {
+                                <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
+                            }
+                            @*If a cell is visited and live == true. they lose the game*@
+                            else if (Model.ElementAt(i).Live == true)
+                            {
+                                <img class="game-cell-image" src="~/img/Bomb.jpg" />
+
+                            }
+                        }
+                        else
+                            @*A cell has not been clicked yet, Will have a a TTC flame logo on top*@
+                        {
+                            <img class="game-cell-image" src="~/img/unvisitedcell.png" />
+                        }
+                    </button>
+                </div>
             }
-            <div class="oneCell" id="@i">
-                <button class="game-cell" type="submit" value="@Model.ElementAt(i).Id, @row,@col"
-                        name="location" asp-controller="Minesweeper" asp-action="HandleCellClick">
-                    @if (Model.ElementAt(i).Flagged == true)
-                    {
-                        <img class="game-cell-image" src="~/img/Flag.jpg">
-                    }
-
-                    else if (Model.ElementAt(i).Visited == true)
-                    {
-                        if (Model.ElementAt(i).Live == false)
-                        {
-                            <img class="game-cell-image" src="~/img/@imagenames[Model.ElementAt(i).LiveNeighbors]" />
-                        }
-                        else if (Model.ElementAt(i).Live == true)
-                        {
-                            <img class="game-cell-image" src="~/img/Bomb.jpg" />
-
-                        }
-                    }
-                    else
-                    {
-                        <img class="game-cell-image" src="~/img/unvisitedcell.png" />
-                    }
-                </button>
-            </div>
-        }
-    </div>
-    <div id="gameOver">
-        <p>Is it over yet?</p>
-    </div>
-</form>
+        </div>
+            @*Message for while the game is running, this will change if the user wins, or loses*@
+        <div id="gameOver">
+            <p>Is it over yet?</p>
+        </div>
+    </form>
 
 @using (Html.BeginForm("OnSave", "Minesweeper"))
 {
