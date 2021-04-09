@@ -3,12 +3,16 @@ using Minesweeper_ArinPatrick.Models;
 using Minesweeper_ArinPatrick.Services.Business;
 using System.Collections.Generic;
 using System.Linq;
-
+using Microsoft.AspNetCore.Http;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
+
     public class UserController : Controller
     {
+        public const string SessionKeyName = "_Name";
+        public string SessionInfo_Name { get; private set; }
+
         UserData userDAL = new UserData();
 
         public IActionResult Index()
@@ -26,9 +30,11 @@ namespace Minesweeper_ArinPatrick.Controllers
         public IActionResult ProcessLogin(Models.UserModel user)
         {
             CommWDataAccess bs = new CommWDataAccess();
-
+            
             if  (bs.GetUserByUserPass(user))
             {
+                OnGet(user);
+                ViewBag.session = HttpContext.Session.GetString(SessionKeyName);
                 return View("LoginSuccess", user);
             }
             else
@@ -47,7 +53,6 @@ namespace Minesweeper_ArinPatrick.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-
         public IActionResult Create([Bind] Models.UserModel objUser)
         {
             if(ModelState.IsValid)
@@ -56,7 +61,16 @@ namespace Minesweeper_ArinPatrick.Controllers
                    return RedirectToAction("Index");
             }
 
-        return View(objUser);
+            return View(objUser);
+        }
+
+        public void OnGet(UserModel user)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+            {
+                HttpContext.Session.SetString(SessionKeyName, user.Username);
+            }
+            var username = HttpContext.Session.GetInt32(SessionKeyName);
         }
     }
 }
