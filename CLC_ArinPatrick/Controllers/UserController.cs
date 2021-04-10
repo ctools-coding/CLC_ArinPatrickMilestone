@@ -4,12 +4,17 @@ using Minesweeper_ArinPatrick.Services.Business;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using NLog;
+using Minesweeper_ArinPatrick.Utility;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
 
     public class UserController : Controller
     {
+        //instantiate Logger
+        //private static Logger logger = LogManager.GetLogger("MinesweeperRule");
        
         UserData userDAL = new UserData();
 
@@ -27,16 +32,21 @@ namespace Minesweeper_ArinPatrick.Controllers
         }
         public IActionResult ProcessLogin(Models.UserModel user)
         {
+            MyLogger.GetInstance().info("Processing a login attempt");
+            MyLogger.GetInstance().info(user.toString());
+
             CommWDataAccess bs = new CommWDataAccess();
             
             if(bs.GetUserByUserPass(user))
             {
+                MyLogger.GetInstance().info("Login Success");
                 HttpContext.Session.SetString("username", user.Username);
                 ViewBag.session = HttpContext.Session.GetString("username");
                 return View("LoginSuccess", user);
             }
             else
             {
+                MyLogger.GetInstance().info("Login Failed");
                 HttpContext.Session.Remove("username");
                 return View("LoginFailure", user);
             }
