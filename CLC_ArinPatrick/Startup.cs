@@ -49,7 +49,7 @@ namespace CLC_ArinPatrick
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseSession();
 
@@ -57,7 +57,7 @@ namespace CLC_ArinPatrick
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=User}/{action=Login}/{id?}");
+                    pattern: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }

@@ -10,9 +10,7 @@ namespace Minesweeper_ArinPatrick.Controllers
 
     public class UserController : Controller
     {
-        public const string SessionKeyName = "_Name";
-        public string SessionInfo_Name { get; private set; }
-
+       
         UserData userDAL = new UserData();
 
         public IActionResult Index()
@@ -31,15 +29,15 @@ namespace Minesweeper_ArinPatrick.Controllers
         {
             CommWDataAccess bs = new CommWDataAccess();
             
-            if  (bs.GetUserByUserPass(user))
+            if(bs.GetUserByUserPass(user))
             {
-                OnGet(user);
-                ViewBag.session = HttpContext.Session.GetString(SessionKeyName);
+                HttpContext.Session.SetString("username", user.Username);
+                ViewBag.session = HttpContext.Session.GetString("username");
                 return View("LoginSuccess", user);
             }
             else
             {
-                 
+                HttpContext.Session.Remove("username");
                 return View("LoginFailure", user);
             }
         }
@@ -52,25 +50,15 @@ namespace Minesweeper_ArinPatrick.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public IActionResult Create([Bind] Models.UserModel objUser)
         {
             if(ModelState.IsValid)
             {
                  userDAL.AddUser(objUser);
-                   return RedirectToAction("Index");
+                 return RedirectToAction("Index");
             }
 
             return View(objUser);
-        }
-
-        public void OnGet(UserModel user)
-        {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
-            {
-                HttpContext.Session.SetString(SessionKeyName, user.Username);
-            }
-            var username = HttpContext.Session.GetInt32(SessionKeyName);
         }
     }
 }
