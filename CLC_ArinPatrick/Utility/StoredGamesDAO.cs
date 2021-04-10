@@ -99,7 +99,7 @@ namespace Minesweeper_ArinPatrick.Utility
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        boardList.Add(new GameObject((int)reader[0],(string)reader[1]));
+                        boardList.Add(new GameObject((int)reader[0],(string)reader[1],(string)reader[2]));
                     }
 
                 }
