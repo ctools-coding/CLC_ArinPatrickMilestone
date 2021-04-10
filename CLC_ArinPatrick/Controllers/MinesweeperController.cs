@@ -19,6 +19,8 @@ namespace Minesweeper_ArinPatrick.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [CustomAuthorization]
         public IActionResult Index()
         {
             board = new Board(8);

@@ -50,7 +50,6 @@ namespace Minesweeper_ArinPatrick.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public IActionResult Create([Bind] Models.UserModel objUser)
         {
             if(ModelState.IsValid)
