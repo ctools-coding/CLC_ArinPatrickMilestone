@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+
 namespace Minesweeper_ArinPatrick.Utility
 {
     public class StoredGamesDAO
@@ -48,25 +49,24 @@ namespace Minesweeper_ArinPatrick.Utility
             GameObject gameObject = new GameObject(1, "", "");
             String connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=dbMinesweeper;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-            String query = "SELECT TOP 1 * FROM dbo.Games" +
-                "WHERE Username = (@Username)" +
-                "ORDER BY Id DESC";
+            String query =  string.Format(@"SELECT TOP 1 * FROM dbo.Games WHERE Username = '{0}' ORDER BY Id DESC", username);
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
+                sqlConnection.Open();
                 using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
                     try
                     {
-                        sqlConnection.Open();
-                        SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-                        while(sqlDataReader.Read())
-                        {
-                            gameObject.Id = sqlDataReader.GetInt32(0);
-                            gameObject.JSONString = sqlDataReader.GetString(1);
-                            gameObject.Username = sqlDataReader.GetString(2);
+                        //SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                        using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                        { 
+                            while (sqlDataReader.Read())
+                            {
+                                gameObject.Id = sqlDataReader.GetInt32(0);
+                                gameObject.JSONString = sqlDataReader.GetString(1);
+                                gameObject.Username = sqlDataReader.GetString(2);
+                            }
                         }
                         sqlConnection.Close();
                     }
@@ -88,8 +88,7 @@ namespace Minesweeper_ArinPatrick.Utility
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 //not using stored procedures
-                string sqlStatement = "SELECT * FROM dbo." +
-                    "Games";
+                string sqlStatement = "SELECT * FROM dbo.Games";
 
                 SqlCommand command = new SqlCommand(sqlStatement, conn);
 
@@ -99,7 +98,7 @@ namespace Minesweeper_ArinPatrick.Utility
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        boardList.Add(new GameObject((int)reader[0],(string)reader[1]));
+                        boardList.Add(new GameObject((int)reader[0],(string)reader[1],(string)reader[2]));
                     }
 
                 }

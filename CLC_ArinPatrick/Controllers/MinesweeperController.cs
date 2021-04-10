@@ -12,10 +12,7 @@ namespace Minesweeper_ArinPatrick.Controllers
 {
     public class MinesweeperController : Controller
     {
-        public const string SessionKeyName = "_Name";
-       //public string SessionInfo_Name { get; private set; }
-
-        public static Board board;
+        static Board board;
         Game game = new Game();
 
         /// <summary>
@@ -182,7 +179,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             } 
 
             StoredGamesDAO storedDAO = new StoredGamesDAO();
-            GameObject gameObject = new GameObject(1, JsonConvert.SerializeObject(cellList), HttpContext.Session.GetString(SessionKeyName));
+            GameObject gameObject = new GameObject(1, JsonConvert.SerializeObject(cellList), HttpContext.Session.GetString("username"));
             bool success = storedDAO.SaveGame(gameObject);
 
             Tuple<bool, string> resultsTuple = new Tuple<bool, string>(success, JsonConvert.SerializeObject(cellList));
@@ -192,9 +189,8 @@ namespace Minesweeper_ArinPatrick.Controllers
         public IActionResult OnLoad()
         {
             StoredGamesDAO storedDAO = new StoredGamesDAO();
-            String username = HttpContext.Session.GetString(SessionKeyName);
      
-            GameObject gameObject = storedDAO.LoadGame(username);
+            GameObject gameObject = storedDAO.LoadGame(HttpContext.Session.GetString("username"));
 
             List<Cell> cellList = JsonConvert.DeserializeObject<List<Cell>>(gameObject.JSONString);
 
