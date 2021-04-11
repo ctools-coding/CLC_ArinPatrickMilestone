@@ -48,5 +48,10 @@ namespace Minesweeper_ArinPatrick.Models
         [Required(ErrorMessage = "Please enter your gender.")]
         [StringLength(20, MinimumLength = 5, ErrorMessage="Password must be at least 5 characters.")]
         public string Password { get; set; }
+
+        public string toString()
+        {
+            return "Name: " + Username + "Password: " + Password;
+        }
     }
 }
