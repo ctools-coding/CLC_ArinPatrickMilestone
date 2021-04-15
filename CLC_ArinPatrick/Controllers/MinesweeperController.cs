@@ -16,7 +16,7 @@ namespace Minesweeper_ArinPatrick.Controllers
         Game game = new Game();
 
         /// <summary>
-        /// 
+        /// actual minesweeper game 
         /// </summary>
         /// <returns></returns>
         [HttpGet]

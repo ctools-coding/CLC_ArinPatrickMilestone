@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper_ArinPatrick.Controllers
 {
+    //route in the url to access the api
     [ApiController]
     [Route("api/[controller]")]
     public class MinesweeperAPIController : ControllerBase
