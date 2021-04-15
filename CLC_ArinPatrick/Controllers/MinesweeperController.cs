@@ -152,6 +152,8 @@ namespace Minesweeper_ArinPatrick.Controllers
         {
             List<Cell> cellList = new List<Cell>();
 
+            UserModel objUser = new UserModel();
+
             foreach (Cell cell in board.grid)
             {
                 cellList.Add(cell);
@@ -160,10 +162,12 @@ namespace Minesweeper_ArinPatrick.Controllers
             if (game.gameOver(cellList) == 1)
             {
                 ViewBag.win = "Congrats, you won!";
+                MyLogger.GetInstance().info(objUser.Username + "Won the game");
             }
             else if(game.gameOver(cellList) == -1)
             {
                 ViewBag.win = "Aw see now you're a loser.";
+                MyLogger.GetInstance().info(objUser.Username + "Lost the game");
             }
             else if(game.gameOver(cellList) == 0)
             {

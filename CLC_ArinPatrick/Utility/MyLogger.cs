@@ -16,12 +16,14 @@ namespace Minesweeper_ArinPatrick.Utility
 
         public static MyLogger GetInstance()
         {
+            //if there is no logger, create a new one. We can only have ONE
             if(instance == null)
             {
                 instance = new MyLogger();
             }
             return instance;
         }
+
 
         private Logger GetLogger()
         {

@@ -13,8 +13,6 @@ namespace Minesweeper_ArinPatrick.Controllers
 
     public class UserController : Controller
     {
-        //instantiate Logger
-        //private static Logger logger = LogManager.GetLogger("MinesweeperRule");
        
         UserData userDAL = new UserData();
 
@@ -32,11 +30,13 @@ namespace Minesweeper_ArinPatrick.Controllers
         }
         public IActionResult ProcessLogin(Models.UserModel user)
         {
+            //logs when soneone attempts to login
             MyLogger.GetInstance().info("Processing a login attempt");
             MyLogger.GetInstance().info(user.toString());
 
             CommWDataAccess bs = new CommWDataAccess();
             
+            //log if the user is successful, we will log that user
             if(bs.GetUserByUserPass(user))
             {
                 MyLogger.GetInstance().info("Login Success");
@@ -46,6 +46,7 @@ namespace Minesweeper_ArinPatrick.Controllers
             }
             else
             {
+                //if someone fails at a login, we will record what they tried to use
                 MyLogger.GetInstance().info("Login Failed");
                 HttpContext.Session.Remove("username");
                 return View("LoginFailure", user);
@@ -62,10 +63,22 @@ namespace Minesweeper_ArinPatrick.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind] Models.UserModel objUser)
         {
-            if(ModelState.IsValid)
+            //logs when soneone attempts to login
+            MyLogger.GetInstance().info("User is about to create a profile");
+            
+
+            if (ModelState.IsValid)
             {
                  userDAL.AddUser(objUser);
-                 return RedirectToAction("Index");
+                //logs when soneone attempts to login
+                MyLogger.GetInstance().info("Processing a Register attempt");
+                MyLogger.GetInstance().info("First Name: " + objUser.First);
+                MyLogger.GetInstance().info("Last Name: " + objUser.Last);
+                MyLogger.GetInstance().info("UserName: " + objUser.Username);
+                MyLogger.GetInstance().info("Password: " + objUser.Password);
+                MyLogger.GetInstance().info("State: " + objUser.State);
+                MyLogger.GetInstance().info("Gender: " + objUser.Gender);
+                return RedirectToAction("Index");
             }
 
             return View(objUser);

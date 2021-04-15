@@ -14,30 +14,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>All Users</h1>
+<head>
+    <style>
+        body {
+            background-color: #c1cfe5;
+        }
+        th,
+        td,
+        tr,
+        thead{
+            padding: 10px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
 
-@*The html <p> element represents paragraph*@
-
-<p>
-    @*The <a> tag defines a hyper link that is used to link one page top another*@
-    <a asp-action="Create">List of All Users</a>
-</p>
 
 
-@*Displaying employee information*@
-@*An html table consists of one <table> element
-    and one or more <tr>, <th> and <td> elements.*@
-<table class="table table-striped">
+    @*The html <p> element represents paragraph*@
+
+    <p>
+        @*The <a> tag defines a hyper link that is used to link one page top another*@
+        <a asp-action="Create">List of All Users</a>
+    </p>
+
+
+    @*Displaying employee information*@
+    @*An html table consists of one <table> element
+        and one or more <tr>, <th> and <td> elements.*@
+<table class="table table-hover">
+
+ 
+
 
     @*Table header is used to group header content in the html table*@
     <thead>
         @*<tr> tag is table row, defines a row in an html table*@
         <tr>
             @*The <th> tag defines a header cell in an html table
-        the text in the th element are bold and center by default*@
+                the text in the th element are bold and center by default*@
             <th>
                 @*The DisplayNameFor shows the name of the property for the string
-            defined in the display attribute of the property*@
+                    defined in the display attribute of the property*@
                 @Html.DisplayNameFor(model => model.First)
             </th>
 
@@ -78,44 +97,45 @@
     <tbody>
         @foreach (var user in Model)
         {
-        <tr>
-            @*<td> Table data defines a standard data cell in html table. The text in the <td> elements
-        are regular and left-aligned by default *@
-            <td>
-                @*The DisplayFor() helper method is a strongly typed extension method.
-            It generates an html string for the model object property
-            specified using a lambda expression*@
-                @Html.DisplayFor(modelItem => user.First)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Last)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => user.Password)
-            </td>
-            @**@
-            <td>
-                <a asp.action="Edit" asp-route-id="@user.UserID">Edit</a>
-                <a asp.action="Details" asp-route-id="@user.UserID">Details</a>
-                <a asp.action="Delete" asp-route-id="@user.UserID">Delete</a>
+            <tr>
+                @*<td> Table data defines a standard data cell in html table. The text in the <td> elements
+                    are regular and left-aligned by default *@
+                <td>
+                    @*The DisplayFor() helper method is a strongly typed extension method.
+                        It generates an html string for the model object property
+                        specified using a lambda expression*@
+                    @Html.DisplayFor(modelItem => user.First)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Last)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => user.Password)
+                </td>
+                @*
+                    <td>
+                        <a asp.action="Edit" asp-route-id="@user.UserID">Edit</a>
+                        <a asp.action="Details" asp-route-id="@user.UserID">Details</a>
+                        <a asp.action="Delete" asp-route-id="@user.UserID">Delete</a>
 
-            </td>
-        </tr>
+                    </td>
+                *@
+            </tr>
         }
 
     </tbody>
